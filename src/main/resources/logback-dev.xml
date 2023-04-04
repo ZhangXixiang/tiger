@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 常量定义start -->
+    <!-- 默认日志输出格式 -->
+    <contextName>${HOSTNAME}</contextName>
+    <property name="APP_NAME" value="tiger"/>
+<!--    <property name="DEFAULT_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}$$%contextName{}$$%level{}$$${APP_NAME}"/>-->
+    <property name="DEFAULT_PATTERN" value="123"/>
+    <property name="MAX_HISTORY" value="30"/>
+<!--    <property name="HOMEPATH" value="/home"/>-->
+    <property name="HOMEPATH" value="/Users/mac/Downloads"/>
+    <property name="ASYNC_QUEUE_SIZE" value="1024"/>
+
+    <!-- 常量定义end -->
+
+    <!-- 默认日志的console appender，本地使用的日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+<!--            <pattern>${DEFAULT_PATTERN}</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{50}) - %yellow([%file:%line]) - %msg%n</pattern>
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}$$%contextName{}$$%level{}$$${APP_NAME}$$%thread{}$$%line{}$$%M{}$$%logger{}$$%X{traceID}$$%X{groupID}$$%X{shopID}$$%X{platformShopID}$$%X{platformCode}$$%X{businessCode}%X{cost}$$%msg%n</pattern>-->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 服务器上使用的appender start -->
+    <!-- 默认的file appender，按天切分日志 -->
+    <appender name="ROLLING_FILE_DEFAULT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>INFO</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${HOMEPATH}/logs/${APP_NAME}/${HOSTNAME}-%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 错误日志，按天切分 -->
+    <appender name="ROLLING_FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${HOMEPATH}/logs/${APP_NAME}/${HOSTNAME}_error-%d{yyyyMMdd}.log</fileNamePattern>
+<!--            <fileNamePattern>Users/dongshuaiyin/Documents/log/${HOSTNAME}_error-%d{yyyyMMdd}.log</fileNamePattern>-->
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 异步输出配置 -->
+    <appender name="ASYNC_DEFAULT" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志，默认，如果队列80%已满，则丢弃TRACT、DEBUG、INFO级别日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认队列的深度，该值会影响性能，默认为256 -->
+        <queueSize>${ASYNC_QUEUE_SIZE}</queueSize>
+        <neverBlock>true</neverBlock>
+        <!-- 附加的 appender -->
+        <appender-ref ref="ROLLING_FILE_DEFAULT"/>
+
+    </appender>
+
+    <!-- 异步输出配置 -->
+    <appender name="ASYNC_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志，默认，如果队列80%已满，则丢弃TRACT、DEBUG、INFO级别日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认队列的深度，该值会影响性能，默认为256 -->
+        <queueSize>${ASYNC_QUEUE_SIZE}</queueSize>
+        <neverBlock>true</neverBlock>
+        <!-- 附加的 appender -->
+        <appender-ref ref="ROLLING_FILE_ERROR"/>
+
+    </appender>
+
+
+    <logger name="com.hualala.order.takeout.mapper" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ASYNC_DEFAULT" />
+    </logger>
+    
+    <root level="INFO">
+<!--        <springProfile name="local, dev, dohko">-->
+            <appender-ref ref="STDOUT"/>
+<!--        </springProfile>-->
+<!--        <springProfile name="!dev">-->
+<!--            <appender-ref ref="ASYNC_DEFAULT"/>-->
+<!--            <appender-ref ref="ASYNC_ERROR"/>-->
+<!--        </springProfile>-->
+    </root>
+
+</configuration>

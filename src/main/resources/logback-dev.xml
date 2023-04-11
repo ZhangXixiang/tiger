@@ -99,7 +99,7 @@
         <appender-ref ref="ASYNC_DEFAULT" />
     </logger>
     
-    <root level="INFO">
+    <root level="TRACE">
 <!--        <springProfile name="local, dev, dohko">-->
             <appender-ref ref="STDOUT"/>
 <!--        </springProfile>-->

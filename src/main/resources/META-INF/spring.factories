@@ -1,0 +1,6 @@
+#org.springframework.context.ApplicationListener=\
+#com.zoo.tiger.me.spr.MyApplicationListener
+org.springframework.context.ApplicationContextInitializer=\
+com.zoo.tiger.me.spr.MyApplicationContextInitializer
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.zoo.tiger.me.spr.MyEnvironmentPostProcessor

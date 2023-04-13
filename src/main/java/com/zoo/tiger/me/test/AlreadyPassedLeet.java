@@ -1,5 +1,7 @@
 package com.zoo.tiger.me.test;
 
+import com.alibaba.fastjson2.JSON;
+
 import java.util.HashMap;
 
 /**
@@ -73,6 +75,9 @@ public class AlreadyPassedLeet {
     }
 
     public static void main(String[] args) {
+        int[] arr = new int[]{3,2,3,1,3,1,1,2,2,2,1,3,33,4};
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println(JSON.toJSONString(arr));
         ListNode listNode1 = new ListNode(1);
         ListNode listNode2 = new ListNode(2);
         ListNode listNode3 = new ListNode(3);
@@ -118,7 +123,37 @@ public class AlreadyPassedLeet {
         pre.next = rightNode;
         leftNode.next = sucNode;
         return pre;
+    }
 
+    // 快排
+    public static void quickSort(int[] arr, int low , int high) {
+        if(low < high ) {
+            int index = getIndex(arr, low ,  high);
+            quickSort(arr, low , index - 1);
+            quickSort(arr, index + 1, high);
+        }
+
+    }
+
+    public static int getIndex(int[] arr ,int low ,int high) {
+        int num = arr[low];
+
+        while (low < high) {
+
+            // 从右边找比基准小的
+            while (low < high && arr[high] >= num) {
+                high--;
+            }
+            arr[low] = arr[high];
+
+            // 从左边找比基准大的
+            while (low < high && arr[low] <= num) {
+                low++;
+            }
+            arr[high] = num;
+
+        }
+        return high;
 
     }
 

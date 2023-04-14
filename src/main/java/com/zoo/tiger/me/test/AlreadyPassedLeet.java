@@ -1,8 +1,13 @@
 package com.zoo.tiger.me.test;
 
 import com.alibaba.fastjson2.JSON;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.cglib.transform.FieldVisitorTee;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Stack;
 
 /**
  * @author Tiger
@@ -75,9 +80,19 @@ public class AlreadyPassedLeet {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{3,2,3,1,3,1,1,2,2,2,1,3,33,4};
+        /*System.out.println(isValid("({[]})"));
+        longestCommonPrefix(new String[]{"flower", "f1low", "flight"});
+        romanToInt("IV");
+
+        System.out.println(isPalindrome1(1234321));
+        System.out.println(addBinary("110", "10"));
+        System.out.println(plusOne(new int[]{9}));
+        System.out.println(Math.pow(1, 2));
+        System.out.println(Math.pow(2, 3));
+
+        int[] arr = new int[]{3, 2, 3, 1, 3, 1, 1, 2, 2, 2, 1, 3, 33, 4};
         quickSort(arr, 0, arr.length - 1);
-        System.out.println(JSON.toJSONString(arr));
+        System.out.println(JSON.toJSONString(arr));*/
         ListNode listNode1 = new ListNode(1);
         ListNode listNode2 = new ListNode(2);
         ListNode listNode3 = new ListNode(3);
@@ -88,7 +103,23 @@ public class AlreadyPassedLeet {
         listNode3.next = listNode4;
         listNode4.next = listNode5;
         listNode5.next = null;
-        reverseBetween(listNode1, 2, 3);
+        // reverseBetween(listNode1, 2, 3);
+
+        ListNode listNode13 = new ListNode(1);
+        ListNode listNode14 = new ListNode(2);
+        ListNode listNode15 = new ListNode(4);
+        listNode13.next = listNode14;
+        listNode14.next = listNode15;
+        listNode15.next = null;
+
+        ListNode listNode23 = new ListNode(1);
+        ListNode listNode24 = new ListNode(2);
+        ListNode listNode25 = new ListNode(4);
+        listNode23.next = listNode24;
+        listNode24.next = listNode25;
+        listNode25.next = null;
+
+        mergeTwoLists(listNode13,listNode23);
     }
 
     // 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
@@ -126,16 +157,16 @@ public class AlreadyPassedLeet {
     }
 
     // 快排
-    public static void quickSort(int[] arr, int low , int high) {
-        if(low < high ) {
-            int index = getIndex(arr, low ,  high);
-            quickSort(arr, low , index - 1);
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int index = getIndex(arr, low, high);
+            quickSort(arr, low, index - 1);
             quickSort(arr, index + 1, high);
         }
 
     }
 
-    public static int getIndex(int[] arr ,int low ,int high) {
+    public static int getIndex(int[] arr, int low, int high) {
         int num = arr[low];
 
         while (low < high) {
@@ -157,22 +188,228 @@ public class AlreadyPassedLeet {
 
     }
 
-
-}
-
-
-class ListNode {
-
-    int val;
-
-    ListNode next;
-
-    public ListNode(int val) {
-        this.val = val;
+    // 58. 最后一个单词的长度
+    public int lengthOfLastWord(String s) {
+        String[] split = s.trim().split(" ");
+        if (split.length == 0) {
+            return s.length();
+        } else {
+            return split[split.length - 1].trim().length();
+        }
     }
 
-    public ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
+    // 58. 最后一个单词的长度
+    public int lengthOfLastWord1(String s) {
+        s = s.trim();
+        int len = 0;
+        for (int i = s.length() - 1; i > -1; i--) {
+            if (s.charAt(i) != ' ') {
+                len++;
+            } else {
+                break;
+            }
+        }
+        return len;
+
+    }
+
+    // 66. 加一
+    public static int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i > -1; i--) {
+            digits[i]++;
+            digits[i] = digits[i] % 10;
+            if (digits[i] != 0) {
+                return digits;
+            }
+        }
+
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
+    // 67. 二进制求和
+    public static String addBinary(String a, String b) {
+        String res = "";
+        int aLen = a.length();
+        int bLen = b.length();
+        int i = 0;
+        int carrier = 0;
+        while (i < Math.max(aLen, bLen)) {
+            int aInt = aLen - 1 - i > -1 ? a.charAt(aLen - 1 - i) - '0' : 0;
+            int bInt = bLen - 1 - i > -1 ? b.charAt(bLen - 1 - i) - '0' : 0;
+            int realVal = aInt + bInt + carrier;
+            if (realVal >= 2) {
+                carrier = 1;
+                res = realVal % 2 + res;
+            } else {
+                res = realVal + res;
+                carrier = 0;
+            }
+            i++;
+        }
+        if (carrier > 0) {
+            res = carrier + res;
+        }
+
+        return res;
+    }
+
+    // 9. 回文数
+    public static boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        String xStr = x + "";
+        for (int i = 0; i < xStr.length() / 2; i++) {
+            if (xStr.charAt(i) != xStr.charAt(xStr.length() - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 9. 回文数 -- 不用字符串
+    public static boolean isPalindrome1(int x) {
+        if (x < 0 || (x != 0 && x % 10 == 0)) {
+            return false;
+        }
+        // 反转一半的数字
+        int temp = 0;
+        while (x > temp) {
+            temp = x % 10 + temp * 10;
+            x /= 10;
+        }
+        return x == temp || x == temp / 10;
+    }
+
+    // 13. 罗马数字转整数
+    public static int romanToInt(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            Integer integer = map.get(s.charAt(i));
+            if ((i < s.length() - 1) && (integer < map.get(s.charAt(i + 1)))) {
+                res -= integer;
+            } else {
+                res += integer;
+            }
+        }
+        return res;
+    }
+
+    // 14. 最长公共前缀
+    public static String longestCommonPrefix(String[] strs) {
+
+        String compareStr = strs[0];
+        int index = 0;
+        for (int j = 0; j < compareStr.length(); j++) {
+            index++;
+            for (int i = 1; i < strs.length; i++) {
+                if ((j >= strs[i].length()) || compareStr.charAt(j) != strs[i].charAt(j)) {
+                    return compareStr.substring(0, index - 1);
+                }
+            }
+        }
+        return compareStr;
+    }
+
+    // 20. 有效的括号 [{()}]
+    public static boolean isValid(String s) {
+        char[] chars = s.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        for (char item : chars) {
+            switch (item) {
+                case '[':
+                case '{':
+                case '(':
+                    stack.push(item);
+                    break;
+                case ']':
+                    if (stack.isEmpty() || stack.pop() != '[') {
+                        return false;
+                    }
+                    break;
+                case '}':
+                    if (stack.isEmpty() || stack.pop() != '{') {
+                        return false;
+                    }
+                    break;
+                case ')':
+                    if (stack.isEmpty() || stack.pop() != '(') {
+                        return false;
+                    }
+                    break;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    // 21. 合并两个有序链表
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode head = null;
+        ListNode tail = head;
+        while (list1 != null || list2 != null) {
+            Integer value1 = null != list1 ? list1.val : null;
+            Integer value2 = null != list2 ? list2.val : null;
+            ListNode listNode = null;
+            if (value1 != null && (value2 == null || value2 > value1)) {
+                listNode = new ListNode(value1);
+                list1 = null != list1 ? list1.next : null;
+            } else {
+                listNode = new ListNode(value2);
+                list2 = null != list2 ? list2.next : null;
+            }
+            if (head == null) {
+                head = listNode;
+                tail = head;
+            } else {
+                tail.next = listNode;
+                tail = tail.next;
+            }
+        }
+        return head;
+    }
+
+    // 21. 合并两个有序链表 --递归
+    public static ListNode mergeTwoLists1(ListNode list1, ListNode list2) {
+        if(null == list1) {
+            return list2;
+        } else if(null == list2) {
+            return list1;
+        } else if(list1.val > list2.val){
+            list2.next = mergeTwoLists(list1,list2.next);
+            return list2;
+        }else {
+            list1.next = mergeTwoLists(list1.next,list2);
+            return list1;
+        }
+    }
+
+
+
+
+   static class ListNode {
+
+        int val;
+
+        ListNode next;
+
+        public ListNode(int val) {
+            this.val = val;
+        }
+
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 }

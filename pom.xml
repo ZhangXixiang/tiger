@@ -21,6 +21,8 @@
         <mysql-connector-java.version>8.0.21</mysql-connector-java.version>
         <roses.kernel.version>7.2.4</roses.kernel.version>
         <docker.img.version>latest</docker.img.version>
+        <sentinel.version>1.8.0</sentinel.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -73,6 +75,59 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.91.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- 由于新版本的spring-boot更新默认用luttuce链接redis了哈-->
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <!--版本4以后移除了一些类，还需要再看下为什么报这错 java: 无法访问redis.clients.jedis.JedisShardInfo-->
+            <!--<version>5.0.0-alpha1</version>-->
+        </dependency>
+
+        <!--To use the processor, include a dependency on spring-boot-configuration-processor.-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-grpc-adapter</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-annotation-aspectj</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+
+        <!-- utils -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+
 
     </dependencies>
 

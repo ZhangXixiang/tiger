@@ -15,13 +15,14 @@ public class ResponseBean<T> {
     private String msg;
 
     public static ResponseBean success(){
-        ResponseBean<Object> success = new ResponseBean<>();
+        ResponseBean<Object> success = new ResponseBean<>(new Object());
         success.code = 0 ;
         success.data = null;
         success.msg = "success";
         return success;
     }
 
-
-
+    public ResponseBean(T data) {
+        this.data = data;
+    }
 }

@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     public ResponseBean handle(BizException e) {
         // 无效授权不打印，太多了
         logger.error("全局异常: {} {}", e.getCode(), e.getMsg());
-        ResponseBean responseBean = new ResponseBean();
+        ResponseBean responseBean = new ResponseBean(new Object());
         responseBean.setCode(e.getCode());
         responseBean.setMsg(e.getMsg());
         return responseBean;

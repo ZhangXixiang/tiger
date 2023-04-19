@@ -2,3 +2,5 @@ spring:
   profiles.active: dev
   aop:
     proxy-target-class: true
+#--spring.profiles.active=pro IDEA VM config
+

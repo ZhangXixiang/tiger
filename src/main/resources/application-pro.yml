@@ -69,4 +69,11 @@ redis:
     max-idle: 100
     min-idle: 5
 
+time:
+  cron: "*/5 * * * * *"
+  interval: 5
+
+
+
+
 

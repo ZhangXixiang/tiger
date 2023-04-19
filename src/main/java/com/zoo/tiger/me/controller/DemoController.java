@@ -3,13 +3,13 @@ package com.zoo.tiger.me.controller;
 
 import com.alibaba.fastjson2.JSON;
 import com.zoo.tiger.me.bean.ResponseBean;
-import com.zoo.tiger.me.exception.BizException;
 import com.zoo.tiger.me.mapper.SysUserMapper;
 import com.zoo.tiger.me.model.SysUser;
 import com.zoo.tiger.me.redis.jedis.JedisClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,8 +25,11 @@ public class DemoController {
 
     private static Logger logger = LoggerFactory.getLogger(DemoController.class);
 
-    @Resource
     private SysUserMapper mapper;
+
+    public DemoController(SysUserMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Resource
     private JedisClient jedisClient;

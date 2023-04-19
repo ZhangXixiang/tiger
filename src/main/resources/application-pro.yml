@@ -8,7 +8,7 @@ server:
 spring:
   datasource:
     ## 默认是hirari
-    type: com.zaxxer.hikari.HikariDataSource
+#    type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT&nullCatalogMeansCurrent=true
     username: root
@@ -17,6 +17,44 @@ spring:
     # 连接池大小根据实际情况调整
     max-active: 100
     max-pool-prepared-statement-per-connection-size: 100
+
+  ## kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto:
+        commit:
+          interval:
+            ms: 1000
+      auto-offset-reset: latest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        group:
+          id: defaultConsumerGroup
+        request:
+          timeout:
+            ms: 180000
+        session:
+          timeout:
+            ms: 120000
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 批量消费每次最多消费多少条消息
+      max-poll-records: 10
+    listener:
+      missing-topics-fatal: false
+      ##批量消费
+      type: batch
+    producer:
+      acks: 1
+      batch-size: 5120
+      buffer-memory: 5242880
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger:
+          ms: 0
+      retries: 0
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 logging:
   config: classpath:logback-dev.xml
@@ -30,3 +68,5 @@ redis:
     max-wait: 10000
     max-idle: 100
     min-idle: 5
+
+

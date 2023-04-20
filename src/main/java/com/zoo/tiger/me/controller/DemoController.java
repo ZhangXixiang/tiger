@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.zoo.tiger.me.bean.ResponseBean;
 import com.zoo.tiger.me.mapper.SysUserMapper;
 import com.zoo.tiger.me.model.SysUser;
+import com.zoo.tiger.me.rabbitMQ.RabbitMQHelper;
 import com.zoo.tiger.me.redis.jedis.JedisClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -34,12 +35,16 @@ public class DemoController {
     @Resource
     private JedisClient jedisClient;
 
+    @Resource
+    private RabbitMQHelper rabbitMQHelper;
+
     /**
      * 示例方法
      * @return
      */
     @GetMapping("/getUser")
     public ResponseBean<?> getUser() {
+        rabbitMQHelper.sendMessageWithEmptyRoutingKey("abd","hello world");
         // 测试全局异常
         // throw new BizException(1,"zero ...");
         String cache = (String) jedisClient.get("1339550467939639299");

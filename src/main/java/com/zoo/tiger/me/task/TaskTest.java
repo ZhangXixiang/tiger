@@ -40,7 +40,7 @@ public class TaskTest {
 
 
     // 推送方法，每秒执行一次
-    @Scheduled(fixedRate = 1000)
+    // @Scheduled(fixedRate = 10000)
     public void push1() throws InterruptedException {
         // 休眠2秒，模拟耗时操作
         TimeUnit.SECONDS.sleep(2);
@@ -48,7 +48,7 @@ public class TaskTest {
     }
 
     // 推送方法，每秒执行一次
-    @Scheduled(fixedRate = 1000)
+    // @Scheduled(fixedRate = 10000)
     public void push2() {
         System.out.println(Thread.currentThread().getName() + "    push2    模拟推送消息，" + System.currentTimeMillis());
     }

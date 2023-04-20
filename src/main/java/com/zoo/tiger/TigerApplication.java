@@ -47,9 +47,9 @@ public class TigerApplication implements CommandLineRunner {
         System.out.println(bean);*/
 
         // 启动方式1
-        /*SpringApplication springApplication1 = new SpringApplication(TigerApplication.class);
+        SpringApplication springApplication1 = new SpringApplication(TigerApplication.class);
         springApplication1.setBannerMode(Banner.Mode.OFF);
-        springApplication1.run(args);*/
+        springApplication1.run(args);
 
 
     }

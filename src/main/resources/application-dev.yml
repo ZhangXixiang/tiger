@@ -1,3 +1,9 @@
+server:
+  #端口号
+  port: 8888
+  #项目名，如果不设定，默认是 /
+  context-path: /
+
 # Mysql数据库
 spring:
   datasource:
@@ -12,6 +18,65 @@ spring:
     max-active: 100
     max-pool-prepared-statement-per-connection-size: 100
 
+      ## kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto:
+        commit:
+          interval:
+            ms: 1000
+      auto-offset-reset: latest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        group:
+          id: defaultConsumerGroup
+        request:
+          timeout:
+            ms: 180000
+        session:
+          timeout:
+            ms: 120000
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 批量消费每次最多消费多少条消息
+      max-poll-records: 10
+    listener:
+      missing-topics-fatal: false
+      ##批量消费
+      type: batch
+    producer:
+      acks: 1
+      batch-size: 5120
+      buffer-memory: 5242880
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger:
+          ms: 0
+      retries: 0
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    # rabbitmq
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: DemoHost
+    template:
+      receive-timeout: 2000
+    bind:
+      order-msg-topic:
+        factory-bean-prefix: primary
+        exchange: abd
+        queues: aaa
+        concurrency: 2
+        max-concurrency: 20
+        auto-startup: false
+        type: direct
+        listener-class: com.zoo.tiger.me.rabbitMQ.RabbitMQListener
+
+
 logging:
   config: classpath:logback-dev.xml
 
@@ -24,3 +89,8 @@ redis:
     max-wait: 10000
     max-idle: 100
     min-idle: 5
+
+time:
+  cron: "*/5 * * * * *"
+  interval: 5
+

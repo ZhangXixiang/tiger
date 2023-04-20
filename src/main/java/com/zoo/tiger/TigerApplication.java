@@ -28,7 +28,6 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class TigerApplication implements CommandLineRunner {
 
-    private static volatile int i = 0;
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -52,26 +51,7 @@ public class TigerApplication implements CommandLineRunner {
         springApplication1.setBannerMode(Banner.Mode.OFF);
         springApplication1.run(args);*/
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int k = 0; k < 100; k++) {
-                    i++;
-                }
-                log.info("thread");
-            }
-        });
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int j = 0; j < 100; j++) {
-                    i++;
-                }
-                log.info("thread1");
-            }
-        });
-        thread.start();
-        thread1.start();
+
     }
 
 

@@ -78,6 +78,11 @@ public class AlreadyPassedLeet {
     }
 
     public static void main(String[] args) {
+        String res = mergeAlternately("aa", "pqrs");
+        System.out.println(res);
+        int[] nums = {-1, 0, 1, 2, -1, -4};
+        List<List<Integer>> lists = threeSum(nums);
+        System.out.println(JSON.toJSONString(lists));
         /*System.out.println(isValid("({[]})"));
         longestCommonPrefix(new String[]{"flower", "f1low", "flight"});
         romanToInt("IV");
@@ -414,22 +419,27 @@ public class AlreadyPassedLeet {
         List<List<Integer>> res = new ArrayList();
         Arrays.sort(nums);
         int n = nums.length;
-        for (int first = 0; first < nums.length; first++) {
+        for (int first = 0; first < n; ++first) {
+
             // 跳过相同的值
             if (first > 0 && nums[first] == nums[first - 1]) {
                 continue;
             }
-            for (int second = first + 1; second < nums.length; second++) {
-                if (second > 0 && nums[second] == nums[second - 1]) {
+            int third = n - 1;
+            int target = -nums[first];
+
+            for (int second = first + 1; second < n; ++second) {
+                if (second > first + 1 && nums[second] == nums[second - 1]) {
                     continue;
                 }
-                int third = n - 1;
-                int target = -nums[first];
 
                 while ((nums[third] + nums[second] > target) && second < third) {
-                    third--;
+                    --third;
                 }
-                if (nums[first] + nums[second] + nums[third] == 0) {
+                if (second == third) {
+                    break;
+                }
+                if (nums[third] + nums[second] == target) {
                     List<Integer> son = new ArrayList();
                     son.add(nums[first]);
                     son.add(nums[second]);
@@ -440,5 +450,34 @@ public class AlreadyPassedLeet {
             }
         }
         return res;
+    }
+
+    //    83. 删除排序链表中的重复元素
+    public ListNode deleteDuplicates(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode cur = head;
+        while (null != cur.next) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
+
+    //    1768. 交替合并字符串
+    public static String mergeAlternately(String word1, String word2) {
+
+        int min = Math.min(word1.length(), word2.length());
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < min; i++) {
+            res.append(word1.charAt(i)).append(word2.charAt(i));
+        }
+        String leftStr = word1.length() > word2.length() ? word1.substring(min, word1.length()) : word2.substring(min, word2.length());
+        res.append(leftStr);
+        return res.toString();
     }
 }

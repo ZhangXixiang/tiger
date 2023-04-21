@@ -44,7 +44,14 @@ public class DemoController {
      */
     @GetMapping("/getUser")
     public ResponseBean<?> getUser() {
-        rabbitMQHelper.sendMessageWithEmptyRoutingKey("abd","hello world");
+        // direct
+        rabbitMQHelper.sendMessageWithEmptyRoutingKey("direct-abd","direct-abd-hello world");
+        // rabbitMQHelper.sendMessageWithRoutingKey("direct-abd","direct-abd-hello world");
+        // fanout
+        // rabbitMQHelper.sendMessageWithEmptyRoutingKey("fanout-abd","fanout-hello world");
+        // rabbitMQHelper.sendMessageWithRoutingKey("fanout-abd","fanout-hello world");
+        // topic
+        // rabbitMQHelper.sendMessageWithRoutingKey("topic-abd","topic-hello world");
         // 测试全局异常
         // throw new BizException(1,"zero ...");
         String cache = (String) jedisClient.get("1339550467939639299");

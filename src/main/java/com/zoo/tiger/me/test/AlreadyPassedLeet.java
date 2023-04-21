@@ -5,9 +5,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.cglib.transform.FieldVisitorTee;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author Tiger
@@ -119,7 +117,7 @@ public class AlreadyPassedLeet {
         listNode24.next = listNode25;
         listNode25.next = null;
 
-        mergeTwoLists(listNode13,listNode23);
+        mergeTwoLists(listNode13, listNode23);
     }
 
     // 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
@@ -381,23 +379,21 @@ public class AlreadyPassedLeet {
 
     // 21. 合并两个有序链表 --递归
     public static ListNode mergeTwoLists1(ListNode list1, ListNode list2) {
-        if(null == list1) {
+        if (null == list1) {
             return list2;
-        } else if(null == list2) {
+        } else if (null == list2) {
             return list1;
-        } else if(list1.val > list2.val){
-            list2.next = mergeTwoLists(list1,list2.next);
+        } else if (list1.val > list2.val) {
+            list2.next = mergeTwoLists(list1, list2.next);
             return list2;
-        }else {
-            list1.next = mergeTwoLists(list1.next,list2);
+        } else {
+            list1.next = mergeTwoLists(list1.next, list2);
             return list1;
         }
     }
 
 
-
-
-   static class ListNode {
+    static class ListNode {
 
         int val;
 
@@ -411,5 +407,38 @@ public class AlreadyPassedLeet {
             this.val = val;
             this.next = next;
         }
+    }
+
+    // 15. 三数之和
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList();
+        Arrays.sort(nums);
+        int n = nums.length;
+        for (int first = 0; first < nums.length; first++) {
+            // 跳过相同的值
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+            for (int second = first + 1; second < nums.length; second++) {
+                if (second > 0 && nums[second] == nums[second - 1]) {
+                    continue;
+                }
+                int third = n - 1;
+                int target = -nums[first];
+
+                while ((nums[third] + nums[second] > target) && second < third) {
+                    third--;
+                }
+                if (nums[first] + nums[second] + nums[third] == 0) {
+                    List<Integer> son = new ArrayList();
+                    son.add(nums[first]);
+                    son.add(nums[second]);
+                    son.add(nums[third]);
+                    res.add(son);
+                }
+
+            }
+        }
+        return res;
     }
 }

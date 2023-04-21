@@ -65,16 +65,11 @@ spring:
     virtual-host: DemoHost
     template:
       receive-timeout: 2000
-    bind:
-      order-msg-topic:
-        factory-bean-prefix: primary
-        exchange: abd
-        queues: aaa
-        concurrency: 2
-        max-concurrency: 20
-        auto-startup: false
-        type: direct
-        listener-class: com.zoo.tiger.me.rabbitMQ.RabbitMQListener
+    #这个配置是保证消费者会消费消息，手动确认
+    listener:
+      simple:
+#        acknowledge-mode: manual
+        acknowledge-mode: auto
 
 
 logging:

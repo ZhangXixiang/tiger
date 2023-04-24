@@ -78,6 +78,7 @@ public class AlreadyPassedLeet {
     }
 
     public static void main(String[] args) {
+        moveZeroes2(new int[]{3, 2, 0, 0, 1});
         /*System.out.println(isValid("({[]})"));
         longestCommonPrefix(new String[]{"flower", "f1low", "flight"});
         romanToInt("IV");
@@ -441,4 +442,240 @@ public class AlreadyPassedLeet {
         }
         return res;
     }
+
+    // 283. 移动零
+    public static void moveZeroes1(int[] nums) {
+        int length = nums.length;
+        int count = 0;
+        for (int i = 0; i < length; i++) {
+            while (nums[i] == 0) {
+                int index = i;
+                // 判断是否已经不需要移动
+                if (length - 1 - count > i) {
+                    // 其他位向前移动
+                    while (index <= length - 2) {
+                        nums[index] = nums[index + 1];
+                        index++;
+                    }
+                    nums[length - 1 - count] = 0;
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        System.out.println(nums);
+    }
+
+    // left right
+    //    3,        2,0,0,1
+    public static void moveZeroes(int[] nums) {
+        int n = nums.length, left = 0, right = 0;
+        while (right < n) {
+            if (nums[right] != 0) {
+                swap(nums, left, right);
+                left++;
+            }
+            right++;
+        }
+    }
+
+    public static void swap(int[] nums, int left, int right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+    }
+
+    public static void moveZeroes2(int[] nums) {
+        int left = 0;
+        int right = 0;
+        while (right < nums.length) {
+            if (nums[right] != 0) {
+                if (left != right) {
+                    swap(nums, left, right);
+                }
+                left++;
+            }
+            right++;
+        }
+
+    }
+
+    public static void swap1(int[] nums, int left, int right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+    }
+
+    // 234. 回文链表
+    public boolean isPalindrome(ListNode head) {
+        if (null == head || null == head.next) {
+            return true;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (head != null) {
+            sb.append(head.val);
+            head = head.next;
+        }
+        for (int i = 0; i < sb.length() / 2; i++) {
+            if (sb.charAt(i) != sb.charAt(sb.length() - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isPalindrome1(ListNode head) {
+
+        List<Integer> val = new ArrayList<>();
+        ListNode dummyNode = head;
+        while (dummyNode != null) {
+            val.add(dummyNode.val);
+            dummyNode = dummyNode.next;
+        }
+        // 双指针
+        int left = 0;
+        int right = val.size() - 1;
+        while (left < right) {
+            if (!val.get(left).equals(val.get(right))) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    // 142. 环形链表 II
+    public ListNode detectCycle(ListNode head) {
+        // 快慢指针
+        // f = 2s
+        // f = s + nb
+        // s = nb 慢指针走了nb到了位置B，到交点需要走a+nb,slow再走a步
+
+        ListNode slow = head;
+        ListNode fast = head;
+        while (true) {
+            if (null == fast || null == fast.next.next || null == fast.next) return null;
+            fast = fast.next.next;
+            slow = slow.next;
+            // 相遇了
+            if (fast == slow) {
+                break;
+            }
+        }
+
+        // 再走a步
+        fast = head;
+        while (fast != slow) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return fast;
+    }
+
+    // 104. 二叉树的最大深度
+    public int maxDepth(TreeNode root) {
+        if (null == root) {
+            return 0;
+        } else {
+            int left = maxDepth(root.left);
+            int right = maxDepth(root.right);
+            return Math.max(left, right) + 1;
+        }
+    }
+
+    // 当前层的所有节点
+    public int maxDepth2(TreeNode root) {
+        // 把每一层的放进Queue
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
+        int levelNum = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode poll = queue.poll();
+                if (null != poll.left) {
+                    queue.offer(poll.left);
+                }
+                if (null != poll.right) {
+                    queue.offer(poll.right);
+                }
+                size--;
+            }
+            levelNum++;
+        }
+        return levelNum;
+    }
+
+    public int maxDepth1(TreeNode root) {
+        int num = 0;
+        getChild(root, num);
+        return num;
+    }
+
+    // 感觉需要用递归
+    public TreeNode getChild(TreeNode tree, int num) {
+        if (tree == null) {
+            return null;
+        }
+
+        if (tree.left != null) {
+            num++;
+            return getChild(tree, num);
+        }
+        if (tree.right != null) {
+            num++;
+            return getChild(tree.right, num);
+        }
+        return null;
+    }
+
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+
+        public TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
+
+        public TreeNode() {
+        }
+    }
+
+    // 121. 买卖股票的最佳时机 顺序 最大差 前面的小 后面的大  4 3 5 8 1 2
+    public int maxProfit1(int[] prices) {
+        int max = 0;
+        for (int j = prices.length - 1; j >= 0; j--) {
+            for (int i = j - 1; i >= 0; i--) {
+                max = Math.max(prices[j] - prices[i], max);
+            }
+        }
+        return max;
+    }
+
+
+    // 121. 买卖股票的最佳时机 顺序 最大差 前面的小 后面的大  4 3 5 8 1 2
+    public int maxProfit(int[] prices) {
+        int min = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (min > prices[i]) {
+                min = prices[i];
+            } else {
+                maxProfit = prices[i] - min;
+            }
+        }
+        return maxProfit;
+    }
+
+
 }

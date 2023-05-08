@@ -9,7 +9,8 @@
     <property name="DEFAULT_PATTERN" value="123"/>
     <property name="MAX_HISTORY" value="30"/>
     <!--    <property name="HOMEPATH" value="/home"/>-->
-    <property name="HOMEPATH" value="/Users/tiger/Downloads"/>
+    <property name="HOMEPATH" value="/Users/mac/Downloads"/>
+<!--    <property name="HOMEPATH" value="/Users/tiger/Downloads"/>-->
     <property name="ASYNC_QUEUE_SIZE" value="1024"/>
 
     <!-- 常量定义end -->

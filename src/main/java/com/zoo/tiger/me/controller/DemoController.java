@@ -32,7 +32,7 @@ public class DemoController {
         this.mapper = mapper;
     }
 
-    @Resource
+    @Resource(name = "jedisClient111")
     private JedisClient jedisClient;
 
     @Resource

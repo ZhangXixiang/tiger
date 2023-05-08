@@ -1,5 +1,6 @@
 package com.zoo.tiger.me.test;
 
+import apple.laf.JRSUIUtils;
 import com.alibaba.fastjson2.JSON;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.cglib.transform.FieldVisitorTee;
@@ -78,15 +79,31 @@ public class AlreadyPassedLeet {
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
+
+        /**
+         *      1
+         *     2  2
+         *    /\  /\
+         *     3   3
+         *
+         *
+         */
+
+        TreeNode t6 = new TreeNode(3, null, null);
+        TreeNode t7 = new TreeNode(3, null, null);
+        TreeNode t1 = new TreeNode(2, null, t6);
+        TreeNode t2 = new TreeNode(2, null, t7);
+        TreeNode t3 = new TreeNode(1, t2, t1);
+        System.out.println(isSymmetric(t3));
+
+
+        generate(4);
         moveZeroes2(new int[]{3, 2, 0, 0, 1});
-=======
         String res = mergeAlternately("aa", "pqrs");
         System.out.println(res);
         int[] nums = {-1, 0, 1, 2, -1, -4};
         List<List<Integer>> lists = threeSum(nums);
         System.out.println(JSON.toJSONString(lists));
->>>>>>> ef205ae488bdc2ef3dff4383dfe873a4b22dbd0b
         /*System.out.println(isValid("({[]})"));
         longestCommonPrefix(new String[]{"flower", "f1low", "flight"});
         romanToInt("IV");
@@ -456,7 +473,6 @@ public class AlreadyPassedLeet {
         return res;
     }
 
-<<<<<<< HEAD
     // 283. 移动零
     public static void moveZeroes1(int[] nums) {
         int length = nums.length;
@@ -645,7 +661,7 @@ public class AlreadyPassedLeet {
         return null;
     }
 
-    class TreeNode {
+    static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -721,7 +737,132 @@ public class AlreadyPassedLeet {
         return res.toString();
     }
 
+    // 118. 杨辉三角
+    /*public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ret = new ArrayList<List<Integer>>();
+        for (int i = 0; i < numRows; ++i) {
+            List<Integer> row = new ArrayList<Integer>();
+            for (int j = 0; j <= i; ++j) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    row.add(ret.get(i - 1).get(j - 1) + ret.get(i - 1).get(j));
+                }
+            }
+            ret.add(row);
+        }
+        return ret;
+    }*/
 
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ret = new ArrayList<List<Integer>>();
+
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> row = new ArrayList<Integer>();
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || i == j) {
+                    row.add(1);
+                } else {
+                    row.add(ret.get(i - 1).get(j) + ret.get(i - 1).get(j - 1));
+                }
+            }
+            ret.add(row);
+        }
+        return ret;
+
+    }
+
+    // 226. 翻转二叉树
+    public TreeNode invertTree1(TreeNode root) {
+        if (null == root) {
+            return root;
+        }
+        TreeNode rigth = invertTree(root.right);
+        TreeNode left = invertTree(root.left);
+        root.left = rigth;
+        root.right = left;
+        return root;
+    }
+
+
+    // 226. 翻转二叉树
+    public TreeNode invertTree(TreeNode root) {
+        if (null == root) {
+            return root;
+        }
+
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode poll = queue.poll();
+            TreeNode left = poll.left;
+            TreeNode right = poll.right;
+
+            poll.right = left;
+            poll.left = right;
+            if (null != right) {
+                queue.offer(right);
+            }
+            if (null != left) {
+                queue.offer(left);
+            }
+        }
+        return root;
+    }
+
+    static StringBuilder ret = new StringBuilder();
+
+    public static void inOrder(TreeNode root) {
+        if (null != root.left) {
+            inOrder(root.left);
+        } else {
+            ret.append("-");
+        }
+        ret.append(root.val);
+        if (null != root.right) {
+            inOrder(root.right);
+        } else {
+            ret.append("-");
+        }
+    }
+
+    public static boolean isSymmetric1(TreeNode root) {
+        inOrder(root);
+        for (int i = 0; i < ret.length(); i++) {
+            if (ret.charAt(i) != ret.charAt(ret.length() - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isSymmetric(TreeNode root) {
+        return check(root,root);
+    }
+
+    public static boolean check(TreeNode t, TreeNode k) {
+        LinkedList<TreeNode> queue = new LinkedList();
+        queue.offer(t);
+        queue.offer(k);
+
+        while (!queue.isEmpty()) {
+            TreeNode a = queue.poll();
+            TreeNode b = queue.poll();
+
+            if ((a == null && b == null)) {
+                continue;
+            } else if (a == null || b == null || a.val != b.val) {
+                return false;
+                // a.val == b.val
+            } else {
+                queue.offer(a.left);
+                queue.offer(b.right);
+                queue.offer(a.right);
+                queue.offer(b.left);
+            }
+        }
+        return true;
+    }
 
 
 }

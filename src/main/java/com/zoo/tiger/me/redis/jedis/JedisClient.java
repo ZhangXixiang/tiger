@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.params.SetParams;
 
 import java.util.*;
@@ -17,6 +18,7 @@ import java.util.*;
  * Jedis方式连接redis
  * @Tiger
  */
+@Component("jedisClient111")
 public class JedisClient {
     private static final Logger logger = LoggerFactory.getLogger(JedisClient.class);
 

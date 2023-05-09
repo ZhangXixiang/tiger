@@ -2,6 +2,7 @@ package com.zoo.tiger.me.controller;
 
 
 import com.alibaba.fastjson2.JSON;
+import com.zoo.tiger.me.anno.Log;
 import com.zoo.tiger.me.bean.ResponseBean;
 import com.zoo.tiger.me.mapper.SysUserMapper;
 import com.zoo.tiger.me.model.SysUser;
@@ -73,6 +74,7 @@ public class DemoController {
     }
 
 
+    @Log(businessName = "========测试日志getInfo========")
     @GetMapping("/getInfo")
     public ResponseBean<?> getInfo(@RequestParam("type") int type) {
         ResponseBean res = ResponseBean.success();

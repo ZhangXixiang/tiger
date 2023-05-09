@@ -44,7 +44,7 @@ public class RabbitMQListener {
             // 由于配置设置了手动应答，所以这里要进行一个手动应答。注意：如果设置了自动应答，这里又进行手动应答，会出现double ack，那么程序会报错。
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
-    }
+    }/*
 
     @RabbitListener(queues = "fanout-abd-1")
     @Component
@@ -110,5 +110,5 @@ public class RabbitMQListener {
             // 由于配置设置了手动应答，所以这里要进行一个手动应答。注意：如果设置了自动应答，这里又进行手动应答，会出现double ack，那么程序会报错。
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
-    }
+    }*/
 }

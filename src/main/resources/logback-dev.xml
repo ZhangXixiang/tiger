@@ -6,11 +6,13 @@
     <contextName>${HOSTNAME}</contextName>
     <property name="APP_NAME" value="tiger"/>
     <!--    <property name="DEFAULT_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}$$%contextName{}$$%level{}$$${APP_NAME}"/>-->
-    <property name="DEFAULT_PATTERN" value="123"/>
+    <property name="DEFAULT_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS}$$%contextName{}$$%level{}$$${APP_NAME}$$%thread{}$$%logger{}$$%method{}$$%line{}$$%X{traceID}$$%X{businessName}$$%X{cost}$$%X{userID}$$%msg%n"/>
+
     <property name="MAX_HISTORY" value="30"/>
     <!--    <property name="HOMEPATH" value="/home"/>-->
     <property name="HOMEPATH" value="/Users/mac/Downloads"/>
-<!--    <property name="HOMEPATH" value="/Users/tiger/Downloads"/>-->
+    <!--    <property name="HOMEPATH" value="/Users/tiger/Downloads"/>-->
     <property name="ASYNC_QUEUE_SIZE" value="1024"/>
 
     <!-- 常量定义end -->
@@ -18,11 +20,10 @@
     <!-- 默认日志的console appender，本地使用的日志 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <!--            <pattern>${DEFAULT_PATTERN}</pattern>-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{50}) -
-                %yellow([%file:%line]) - %msg%n
-            </pattern>
-            <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}$$%contextName{}$$%level{}$$${APP_NAME}$$%thread{}$$%line{}$$%M{}$$%logger{}$$%X{traceID}$$%X{groupID}$$%X{shopID}$$%X{platformShopID}$$%X{platformCode}$$%X{businessCode}%X{cost}$$%msg%n</pattern>-->
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{50}) - -->
+            <!--                %yellow([%file:%line]) - %msg%n-->
+            <!--            </pattern>-->
             <charset>UTF-8</charset>
         </encoder>
     </appender>

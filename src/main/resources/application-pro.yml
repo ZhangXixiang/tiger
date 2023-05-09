@@ -20,23 +20,23 @@ spring:
 
     # rabbitmq
   rabbitmq:
-    host: 127.0.0.1
+    host: localhost
     port: 5672
-    username: guest
-    password: guest
-    virtual-host: DemoHost
+    username: admin
+    password: admin
+    virtual-host: /
     template:
       receive-timeout: 2000
-    bind:
-      tiger-topic:
-        factory-bean-prefix: primary
-        exchange: abd
-        queues: aaa
-        concurrency: 2
-        max-concurrency: 20
-        auto-startup: false
-        type: topic
-        listener-class: com.zoo.tiger.me.rabbitMQ.RabbitMQListener
+#    bind:
+#      tiger-topic:
+#        factory-bean-prefix: primary
+#        exchange: abd
+#        queues: aaa
+#        concurrency: 2
+#        max-concurrency: 20
+#        auto-startup: false
+#        type: topic
+#        listener-class: com.zoo.tiger.me.rabbitMQ.RabbitMQListener
 
   ## kafka
   kafka:

@@ -58,10 +58,10 @@ spring:
 
     # rabbitmq
   rabbitmq:
-    host: 127.0.0.1
+    host: localhost
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
     virtual-host: DemoHost
     template:
       receive-timeout: 2000

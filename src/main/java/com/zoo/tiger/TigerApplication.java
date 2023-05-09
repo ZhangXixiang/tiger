@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Import;
 import java.util.concurrent.Callable;
 
 @SpringBootApplication(scanBasePackages = {"com.zoo.tiger*"})
-// 不加这个也能扫描到mapper
+// 不加这个也能扫描到mapper 指定对应的包比较好一些，防止会错误扫描到不需要的类
 @MapperScan(basePackages = {"com.zoo.tiger.me.mapper*"})
 @Import({com.zoo.tiger.me.config.SelfConfigTest.class})
 @Slf4j

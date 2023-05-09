@@ -7,6 +7,7 @@ import com.zoo.tiger.me.mapper.SysUserMapper;
 import com.zoo.tiger.me.model.SysUser;
 import com.zoo.tiger.me.rabbitMQ.RabbitMQHelper;
 import com.zoo.tiger.me.redis.jedis.JedisClient;
+import com.zoo.tiger.me.spr.fac.FddApiFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,10 @@ public class DemoController {
     @Resource
     private RabbitMQHelper rabbitMQHelper;
 
+    @Autowired
+    private FddApiFactory factory;
+
+
     /**
      * 示例方法
      * @return
@@ -65,6 +70,16 @@ public class DemoController {
         }
         logger.info("sysUser={}", JSON.toJSONString(sysUser));
         return new ResponseBean<>(sysUser);
+    }
+
+
+    @GetMapping("/getInfo")
+    public ResponseBean<?> getInfo(@RequestParam("type") int type) {
+        ResponseBean res = ResponseBean.success();
+        String info = factory.getApi(type).getInfo();
+        res.setData(info);
+        logger.info("info={}", info);
+        return res;
     }
     /**
      * 示例方法

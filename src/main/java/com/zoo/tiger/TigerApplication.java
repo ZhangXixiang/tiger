@@ -17,13 +17,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 import java.util.concurrent.Callable;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.zoo.tiger*"})
 // 不加这个也能扫描到mapper
-@MapperScan(basePackages = {"com.zoo.tiger.*"})
+@MapperScan(basePackages = {"com.zoo.tiger.me.mapper*"})
 @Import({com.zoo.tiger.me.config.SelfConfigTest.class})
 @Slf4j
 public class TigerApplication implements CommandLineRunner {

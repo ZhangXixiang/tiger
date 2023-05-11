@@ -13,6 +13,12 @@ import java.util.concurrent.*;
 public class ThreadTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ThreadLocal<String> mainThreadLocal = new ThreadLocal<>();
+        mainThreadLocal.set("main");
+
+        Thread thread = new Thread();
+        thread.start();
+        System.out.println(thread.getContextClassLoader());
         // executeTask1();
         // executeTask2();
 

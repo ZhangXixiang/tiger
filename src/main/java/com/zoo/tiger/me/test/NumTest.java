@@ -45,6 +45,23 @@ public class NumTest {
         String s2 = s1.intern();
         System.out.println(s1 == s2);
 
+        String l = "abc33dd";
+        String[] split = l.split("\\.");
+        System.out.println(Arrays.toString(split));
+        Calculator calculator = new Calculator();
+
+        int result = calculator.calculate(10, 5, (aa, bb) -> aa + bb);
+        System.out.println("Result: " + result);
+    }
+}
+
+interface MathOperation {
+    int operate(int a, int b);
+}
+
+class Calculator {
+    public int calculate(int a, int b, MathOperation mathOperation) {
+        return mathOperation.operate(a, b);
     }
 
 }

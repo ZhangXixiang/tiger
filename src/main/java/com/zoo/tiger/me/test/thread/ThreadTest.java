@@ -1,7 +1,6 @@
 package com.zoo.tiger.me.test.thread;
 
 import com.zoo.tiger.me.exception.BizException;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;

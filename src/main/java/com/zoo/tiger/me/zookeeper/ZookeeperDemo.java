@@ -43,10 +43,11 @@ public class ZookeeperDemo {
         // 进行阻塞
         countDownLatch.await();
         // 创建父节点
-        //        String result = zk.create("/testRott", "12245465".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-        //        System.out.println("result:" + result);
+        // String result = zk.create("/testRott", "12245465".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        // System.out.println("result:" + result);
         // 创建子节点
-        String result = zk.create("/tiger/children", "children 12245465".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        String result = zk.create("/tiger/children", "children 12245465".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+            CreateMode.PERSISTENT);
         System.out.println("result:" + result);
         zk.close();
     }

@@ -108,11 +108,11 @@ public class AlreadyPassedLeet {
         System.out.println(addBinary("110", "10"));
         System.out.println(plusOne(new int[]{9}));
         System.out.println(Math.pow(1, 2));
-        System.out.println(Math.pow(2, 3));
+        System.out.println(Math.pow(2, 3));*/
 
-        int[] arr = new int[]{3, 2, 3, 1, 3, 1, 1, 2, 2, 2, 1, 3, 33, 4};
+        int[] arr = new int[]{3, 26, 3, 140, 3, 1, 12, 2, 2, 21, 11, 3, 33, 4};
         quickSort(arr, 0, arr.length - 1);
-        System.out.println(JSON.toJSONString(arr));*/
+        System.out.println("快排："+JSON.toJSONString(arr));
         ListNode listNode1 = new ListNode(1);
         ListNode listNode2 = new ListNode(2);
         ListNode listNode3 = new ListNode(3);
@@ -201,9 +201,10 @@ public class AlreadyPassedLeet {
             while (low < high && arr[low] <= num) {
                 low++;
             }
-            arr[high] = num;
+            arr[high] = arr[low];
 
         }
+        arr[low] = num;
         return high;
 
     }
@@ -657,10 +658,10 @@ public class AlreadyPassedLeet {
         return null;
     }
 
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+    public static class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
 
 
         public TreeNode(int val, TreeNode left, TreeNode right) {

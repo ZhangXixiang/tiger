@@ -1,6 +1,5 @@
 package com.zoo.tiger;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 public class SingletonTest {
 
@@ -37,6 +36,29 @@ public class SingletonTest {
     public SingletonTest getSingle(){
         return SingletonTest.Item.a;
     }
+
+
+
+    private enum Single{
+       ;
+
+       private SingletonTest item;
+
+        Single() {
+            this.item = new SingletonTest();
+        }
+
+        public SingletonTest getIns() {
+            return item;
+        }
+    }
+
+
+
+
+
+
+
 
     // 基于枚举
     private enum SingleEnum {

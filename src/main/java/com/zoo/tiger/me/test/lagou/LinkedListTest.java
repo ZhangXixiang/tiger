@@ -1,4 +1,4 @@
-package com.zoo.tiger.me.test;
+package com.zoo.tiger.me.test.lagou;
 
 import java.util.LinkedList;
 
@@ -8,6 +8,8 @@ public class LinkedListTest {
         ring(10, 5);
         System.out.println("========================");
         ring2(10, 5, 2);
+        System.out.println("========================");
+        ring3(10, 2, 5);
     }
 
     // 约瑟夫环
@@ -61,9 +63,40 @@ public class LinkedListTest {
                 System.out.println(value);
             }
         }
+    }
+
+    // 约瑟夫环 一共n个人 从第k个人开始数第m个人出列 一直到所有人出列
+    public static void ring3(int n, int k, int m) {
+        //构造一个队列
+        LinkedList<Integer> queue = new LinkedList<>();
+        for(int i = 1 ; i <= n ; i++){
+            queue.add(i);
+        }
+
+        //找到第k个人
+
+        for(int i = 1;i < k; i++){
+            Integer poll = queue.poll();
+            queue.add(poll);
+        }
+
+        int i = 1;
+        while (!queue.isEmpty()) {
+            Integer poll = queue.poll();
+            if(i < m) {
+                queue.add(poll);
+                i++;
+            } else {
+                i = 1;
+                System.out.println(poll);
+            }
+        }
+
 
 
     }
+
+
 
 
 }

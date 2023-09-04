@@ -1,4 +1,4 @@
-package com.zoo.tiger.me.anno;
+package com.zoo.tiger.me.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
 package com.zoo.tiger.me.asp;
 
-import com.zoo.tiger.me.anno.Log;
+import com.zoo.tiger.me.annotation.Log;
 import com.zoo.tiger.me.util.ExpressionUtils;
 import com.zoo.tiger.me.util.MdcUtils;
 import lombok.extern.slf4j.Slf4j;

@@ -2,7 +2,7 @@ package com.zoo.tiger.me.controller;
 
 
 import com.alibaba.fastjson2.JSON;
-import com.zoo.tiger.me.anno.Log;
+import com.zoo.tiger.me.annotation.Log;
 import com.zoo.tiger.me.bean.ResponseBean;
 import com.zoo.tiger.me.mapper.SysUserMapper;
 import com.zoo.tiger.me.model.SysUser;
@@ -66,6 +66,7 @@ public class DemoController {
             return new ResponseBean<>(JSON.parseObject(cache, SysUser.class));
         }
         SysUser sysUser = mapper.selectByPrimaryKey(1339550467939639299L);
+//        PageHelper.startPage(1,1);
         if(!Objects.isNull(sysUser)) {
             jedisClient.setEx("1339550467939639299", 10, JSON.toJSONString(sysUser));
         }

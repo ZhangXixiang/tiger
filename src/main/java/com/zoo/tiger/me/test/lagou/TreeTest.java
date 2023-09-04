@@ -1,7 +1,6 @@
 package com.zoo.tiger.me.test.lagou;
 
 import com.zoo.tiger.me.test.AlreadyPassedLeet;
-import org.apache.kafka.common.message.LeaderAndIsrRequestData;
 
 import java.util.LinkedList;
 import java.util.Stack;
@@ -110,20 +109,6 @@ public class TreeTest {
             }
         }
 
-        // 基数层，比如第一层，头结点入队列，判断队列知否不为空，开始出队，入栈
-        while (!list.isEmpty()) {
-            AlreadyPassedLeet.TreeNode poll = list.poll();
-            if (poll.left != null || poll.right != null) {
-                System.out.println(poll.val);
-                if (poll.left != null) {
-                    stack.add(poll.left);
-                }
-                if (poll.right != null) {
-                    stack.add(poll.right);
-                }
-                count++;
-            }
-        }
 
     }
 

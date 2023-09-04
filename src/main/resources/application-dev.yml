@@ -62,7 +62,7 @@ spring:
     port: 5672
     username: admin
     password: admin
-    virtual-host: DemoHost
+    virtual-host: /
     template:
       receive-timeout: 2000
     #这个配置是保证消费者会消费消息，手动确认
@@ -87,4 +87,12 @@ redis:
 time:
   cron: "*/5 * * * * *"
   interval: 5
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql
+
+
 

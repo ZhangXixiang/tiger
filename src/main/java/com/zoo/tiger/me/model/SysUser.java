@@ -1,5 +1,8 @@
 package com.zoo.tiger.me.model;
 
+import com.zoo.tiger.me.annotation.Check;
+import com.zoo.tiger.me.enums.CheckType;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,6 +14,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
+    @Check(type = CheckType.REQUEST_NO)
     private Long user_id;
 
     /**

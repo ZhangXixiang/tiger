@@ -1,6 +1,6 @@
 package com.zoo.tiger.me.util;
 
-import com.zoo.tiger.me.anno.Log;
+import com.zoo.tiger.me.annotation.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;

@@ -52,6 +52,7 @@ public class DemoController {
     public ResponseBean<?> getUser() {
         // direct
         rabbitMQHelper.sendMessageWithEmptyRoutingKey("direct-abd","direct-abd-hello world");
+
         // rabbitMQHelper.sendMessageWithRoutingKey("direct-abd","direct-abd-hello world");
         // fanout
         // rabbitMQHelper.sendMessageWithEmptyRoutingKey("fanout-abd","fanout-hello world");

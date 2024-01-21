@@ -1,6 +1,9 @@
 package com.zoo.tiger.me.test.sort;
 
 import com.alibaba.fastjson2.JSON;
+import com.zoo.tiger.me.model.People;
+
+import java.util.Optional;
 
 
 /**
@@ -9,6 +12,10 @@ import com.alibaba.fastjson2.JSON;
 public class SortTest {
 
     public static void main(String[] args) {
+        People people = new People(0, "null");
+        Optional.of(people).map(People::getName).ifPresent(System.out::println);
+
+
         int[] arr = {2, 1, 5, 4};
         heapSort(arr);
         System.out.println(JSON.toJSONString(arr));
@@ -72,7 +79,7 @@ public class SortTest {
                 high --;
             }
             arr[low] = arr[high];
-            // 从左边找大
+            // 从左边找大git
             while (low < high && arr[low] <= temp) {
                 low ++;
             }
@@ -81,6 +88,8 @@ public class SortTest {
         arr[high] = temp;
         return low;
     }
+
+
 
     // 堆排序
     public static void heapSort(int[] arr) {
